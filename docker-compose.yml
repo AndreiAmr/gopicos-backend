@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  db:
+  gopicos-backend:
     image: postgres:latest
     restart: always
     env_file:
