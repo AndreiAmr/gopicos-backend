@@ -22,5 +22,49 @@ model User {
   deletedAt DateTime?
   updatedAt DateTime? @updatedAt
 
+  Rating Rating[]
+  Spot   Spot[]
+
   @@map("users")
+}
+
+model Spot {
+  id          String  @unique @default(uuid())
+  name        String
+  description String
+  rate        Int     @default(0)
+  hasRoof     Boolean
+  isPaid      Boolean
+  entryAmount Int?
+  latitude    Int
+  longitude   Int
+  address     String
+  author      User    @relation(fields: [authorId], references: [id])
+  authorId    String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  deletedAt DateTime?
+  deleted   Boolean   @default(false)
+  images    String[]
+
+  Rating Rating[]
+
+  @@map("spots")
+}
+
+model Rating {
+  id        String    @id @default(uuid())
+  comment   String
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  spot      Spot      @relation(fields: [spotId], references: [id])
+  spotId    String
+  rate      Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
+
+  @@map("ratings")
 }

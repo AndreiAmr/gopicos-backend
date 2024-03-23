@@ -61,8 +61,6 @@ describe('Authentication Login route', () => {
 
     const { status, data } = response.body;
 
-    console.log({ data });
-
     expect(status).toBe('error');
     expect(data.message).toBe('Invalid Credentials');
   });
