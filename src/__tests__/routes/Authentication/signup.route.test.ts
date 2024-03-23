@@ -34,8 +34,6 @@ describe('Authentication Signup route', () => {
 
     const { status, data } = response.body;
 
-    console.log({ data });
-
     expect(status).toBe('success');
     expect(data.user).toHaveProperty('id');
     expect(data.user).toHaveProperty('name');
