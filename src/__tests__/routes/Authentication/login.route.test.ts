@@ -6,7 +6,7 @@ describe('Authentication Login route', () => {
   it('should make login successfully', async () => {
     const response = await supertest(app).post('/api/auth/login').send({
       email: 'andrei@gmail.com',
-      password: 'amaral',
+      password: 'Amaral@2',
     });
 
     const { status, data } = response.body;
