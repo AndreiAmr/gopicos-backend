@@ -11,7 +11,6 @@ const createSpotSchema = z.object({
   hasRoof: z.string(),
   isPaid: z.string(),
   entryAmount: z.string().optional(),
-  address: z.string().min(12).max(255),
   longitude: z.string(),
   latitude: z.string(),
 });

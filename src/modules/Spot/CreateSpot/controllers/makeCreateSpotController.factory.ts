@@ -33,11 +33,11 @@ class MakeCreateSpotController {
         ...spotDTO,
         isPaid: spotDTO.isPaid === 'true',
         hasRoof: spotDTO.hasRoof === 'true',
+        address: '',
         entryAmount: spotDTO.entryAmount
           ? Number(spotDTO.entryAmount)
           : undefined,
-        longitude: Number(spotDTO.longitude),
-        latitude: Number(spotDTO.latitude),
+
         images,
       };
 

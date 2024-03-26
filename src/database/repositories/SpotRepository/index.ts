@@ -20,7 +20,11 @@ class SpotRepository implements ISpotRepository {
   }
 
   async findAll(): Promise<Spot[]> {
-    return await prisma.spot.findMany();
+    return await prisma.spot.findMany({
+      include: {
+        Rating: true,
+      },
+    });
   }
 
   public async findByNameAndAuthorId({

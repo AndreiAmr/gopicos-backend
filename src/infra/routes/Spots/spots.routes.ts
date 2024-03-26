@@ -1,5 +1,6 @@
 import { createSpotController } from '@modules/Spot/CreateSpot/controllers/createSpotController';
 import { validateCreateSpotMiddleware } from '@modules/Spot/CreateSpot/middlewares/validate-create-spot.middleware';
+import { findAllSpotsController } from '@modules/Spot/FindAll/controllers/findAllSpots.controller';
 import { spotsURLs } from '@shared/utils/routes-urls';
 import { Router } from 'express';
 import multer from 'multer';
@@ -27,5 +28,7 @@ routes.post(
   validateCreateSpotMiddleware,
   createSpotController
 );
+
+routes.get(spotsURLs.list, findAllSpotsController);
 
 export { routes as spotsRoutes };

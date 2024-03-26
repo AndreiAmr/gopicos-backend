@@ -18,8 +18,8 @@ export type CreateSpotDTO = {
   isPaid: boolean;
   entryAmount?: number;
   address: string;
-  longitude: number;
-  latitude: number;
+  longitude: string;
+  latitude: string;
   images: string[];
 };
 

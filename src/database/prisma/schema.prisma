@@ -36,8 +36,8 @@ model Spot {
   hasRoof     Boolean
   isPaid      Boolean
   entryAmount Int?
-  latitude    Int
-  longitude   Int
+  latitude    String
+  longitude   String
   address     String
   author      User    @relation(fields: [authorId], references: [id])
   authorId    String
