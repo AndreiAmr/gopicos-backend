@@ -6,6 +6,7 @@ export type ISpotRepository = {
   findAll(): Promise<Spot[]>;
   findByNameAndAuthorId(dto: FindSpotByNameDTO): Promise<Spot | null>;
   create(dto: CreateSpotDTO): Promise<Spot>;
+  findById(id: string): Promise<Spot | null>;
 };
 
 class SpotRepository implements ISpotRepository {
@@ -22,7 +23,11 @@ class SpotRepository implements ISpotRepository {
   async findAll(): Promise<Spot[]> {
     return await prisma.spot.findMany({
       include: {
-        Rating: true,
+        Rating: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
   }
@@ -43,6 +48,24 @@ class SpotRepository implements ISpotRepository {
     return await prisma.spot.create({
       data,
     });
+  }
+
+  async findById(id: string): Promise<Spot | null> {
+    const spot = await prisma.spot.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        Rating: {
+          include: {
+            user: true,
+          },
+        },
+        author: true,
+      },
+    });
+
+    return spot || null;
   }
 }
 
