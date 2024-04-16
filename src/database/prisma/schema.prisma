@@ -61,6 +61,7 @@ model Rating {
   spot      Spot      @relation(fields: [spotId], references: [id])
   spotId    String
   rate      Int
+  title     String    @default("")
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   deleted   Boolean   @default(false)
