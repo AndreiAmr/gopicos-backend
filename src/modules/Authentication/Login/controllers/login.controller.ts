@@ -1,5 +1,5 @@
 import { loginService } from '../services/login.service';
-import { MakeLoginController } from './MakeLoginController.factory';
+import { MakeLoginController } from './makeLoginController.factory';
 
 const LoginControllerFactory = new MakeLoginController(loginService);
 

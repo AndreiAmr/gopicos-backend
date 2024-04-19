@@ -69,3 +69,21 @@ model Rating {
 
   @@map("ratings")
 }
+
+enum ActivityEnum {
+  EMAIL_CONFIRMATION
+  RECOVER_PASSWORD
+}
+
+model UserActivityConfirmations {
+  id        String       @id @default(uuid())
+  email     String
+  token     String
+  activity  ActivityEnum
+  expiresAt DateTime
+  createdAt DateTime     @default(now())
+  deleted   Boolean      @default(false)
+  deletedAt DateTime?
+
+  @@map("user_activity_confirmations")
+}

@@ -3,6 +3,7 @@ import { routes } from '@infra/routes';
 import express from 'express';
 import { errorHandler } from '@shared/errors/error-handler';
 import path from 'path';
+import RabbitMQProvider from '@infra/RabbitMQ';
 
 const app = express();
 app.use(express.json());
@@ -23,5 +24,7 @@ if (process.env.NODE_ENV !== 'test') {
     console.log('Server is running on port 3000');
   });
 }
+
+const rabbitMQ = RabbitMQProvider.getInstance();
 
 export { app };
