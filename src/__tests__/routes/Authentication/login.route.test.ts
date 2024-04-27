@@ -23,10 +23,11 @@ describe('Authentication Login route', () => {
       password: '12345678',
     });
 
-    const { status, data } = response.body;
+    const status = response.status;
+    const { error } = response.body;
 
-    expect(status).toBe('error');
-    expect(data.message).toBe('Invalid password');
+    expect(status).toBe(400);
+    expect(error).toBe('Invalid password.');
   });
 
   it('should not find a user', async () => {
@@ -35,10 +36,11 @@ describe('Authentication Login route', () => {
       password: 'amaral',
     });
 
-    const { status, data } = response.body;
+    const { error } = response.body;
+    const status = response.status;
 
-    expect(status).toBe('error');
-    expect(data.message).toBe('User not found');
+    expect(status).toBe(404);
+    expect(error).toBe('User not found');
   });
 
   it('should return status error if email is not provided', async () => {
