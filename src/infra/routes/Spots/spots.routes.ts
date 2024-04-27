@@ -1,3 +1,5 @@
+import { actualUserMiddleware } from '@infra/middlewares/actual-user.middleware';
+import { requireAuth } from '@infra/middlewares/require-auth.middleware';
 import { createSpotController } from '@modules/Spot/CreateSpot/controllers/createSpotController';
 import { validateCreateSpotMiddleware } from '@modules/Spot/CreateSpot/middlewares/validate-create-spot.middleware';
 import { findAllSpotsController } from '@modules/Spot/FindAll/controllers/findAllSpots.controller';
@@ -26,11 +28,23 @@ const upload = multer({
 routes.post(
   spotsURLs.create,
   upload.array('image'),
+  actualUserMiddleware,
+  requireAuth,
   validateCreateSpotMiddleware,
   createSpotController
 );
 
-routes.get(spotsURLs.list, findAllSpotsController);
-routes.get(spotsURLs.findById, findSpotByIdController);
+routes.get(
+  spotsURLs.list,
+  actualUserMiddleware,
+  requireAuth,
+  findAllSpotsController
+);
+routes.get(
+  spotsURLs.findById,
+  actualUserMiddleware,
+  requireAuth,
+  findSpotByIdController
+);
 
 export { routes as spotsRoutes };

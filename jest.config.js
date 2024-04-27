@@ -8,4 +8,5 @@ module.exports = {
     '^@shared/(.*)$': '<rootDir>/src/shared/$1',
     '^@database/(.*)$': '<rootDir>/src/database/$1',
   },
+  setupFiles: ['./jest.setup.js'],
 };

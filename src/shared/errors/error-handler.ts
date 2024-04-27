@@ -7,7 +7,6 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log('POR QUE N TO CAINDO AQUI ?');
   if (error instanceof ServerError) {
     return res.status(error.statusCode).json({ error: error.message });
   }

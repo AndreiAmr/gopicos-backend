@@ -17,7 +17,7 @@ export class MakeSignupServiceFactory {
     if (userAlreadyExists) {
       throw new ServerError({
         message: 'User already exists',
-        statusCode: 401,
+        statusCode: 409,
       });
     }
 

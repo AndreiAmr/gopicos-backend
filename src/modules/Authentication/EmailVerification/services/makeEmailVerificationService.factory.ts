@@ -30,8 +30,6 @@ export class MakeEmailVerificationService {
       });
     }
 
-    const token = String(generateRandomToken());
-
     if (tokenAlreadyRegisted && isTokenExpired) {
       await this.userActivityConfirmations.delete({
         id: tokenAlreadyRegisted.id,

@@ -1,11 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 import { ILoginService } from '../services/makeLoginService.factory';
-import { comparePassword } from '@shared/utils/crypto-password';
+import { JWTToken } from '@shared/types/jwt-token';
 
 interface LoginDTO {
   email: string;
   password: string;
 }
+
+const SECRET = process.env.SECRET as string;
 
 export class MakeLoginController {
   constructor(private readonly loginService: ILoginService) {}
@@ -16,9 +19,9 @@ export class MakeLoginController {
     next: NextFunction
   ) {
     try {
-      const user: LoginDTO = request.body;
+      const userPayload: LoginDTO = request.body;
 
-      if (!user.email || !user.password) {
+      if (!userPayload.email || !userPayload.password) {
         response.status(400).send({
           status: 'error',
           data: {
@@ -28,39 +31,29 @@ export class MakeLoginController {
         return;
       }
 
-      const userFinded = await this.loginService(user.email);
-
-      if (!userFinded) {
-        response.status(401).send({
-          status: 'error',
-          data: {
-            message: 'User not found',
-          },
-        });
-        return;
-      }
-
-      const passwordsMatch = comparePassword(
-        user.password,
-        userFinded.password
+      const user = await this.loginService(
+        userPayload.email,
+        userPayload.password
       );
 
-      if (!passwordsMatch) {
-        response.status(401).send({
-          status: 'error',
-          data: {
-            message: 'Invalid password',
-          },
-        });
-        return;
-      }
+      const jwtToken = jwt.sign(
+        {
+          email: user.email,
+        } as JWTToken,
+        SECRET,
+        { expiresIn: 300 }
+      );
 
-      const { password: _, ...rest } = userFinded;
+      response.cookie('token', jwtToken, {
+        secure: false,
+        httpOnly: true,
+      });
 
       response.status(200).send({
         status: 'success',
         data: {
-          user: rest,
+          user,
+          accessToken: jwtToken,
         },
       });
     } catch (err) {

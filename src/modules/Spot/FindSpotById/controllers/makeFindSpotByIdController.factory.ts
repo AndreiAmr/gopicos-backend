@@ -9,8 +9,6 @@ class MakeFindSpotByIdController {
     try {
       const { id } = request.params;
 
-      console.log({ params: request.params });
-
       if (!id) {
         throw new ServerError({
           message: 'You must pass the spot id',
