@@ -19,8 +19,6 @@ describe('Rating spot route', () => {
         password: 'Amaral@2',
       });
 
-    console.log({ authBody });
-
     const spotMocked = await prisma.spot.findFirst({
       where: {
         name: 'BNH Skatepark',
@@ -37,7 +35,6 @@ describe('Rating spot route', () => {
         comment: 'This is a comment for testing purposes',
         rate: 5,
       });
-    console.log({ status, body });
 
     expect(status).toBe(201);
     expect(body).toHaveProperty('id');
@@ -59,8 +56,6 @@ describe('Rating spot route', () => {
         email: 'andrei@gmail.com',
         password: 'Amaral@2',
       });
-
-    console.log({ authBody });
 
     const spotMocked = await prisma.spot.findFirst({
       where: {

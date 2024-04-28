@@ -22,7 +22,6 @@ describe('Email Confirmation Route', () => {
         type: 'EMAIL_CONFIRMATION',
       });
 
-    console.log({ body, status });
     const userActivityCreated =
       await prisma.userActivityConfirmations.findFirst({
         where: {
